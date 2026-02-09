@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pacifico', cursive;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* change from center to flex-start */
+    min-height: 100%; /* allow page to grow */
+    padding: 20px;
+    text-align: center;
+    overflow-x: hidden; /* prevent horizontal scroll */
+    position: relative;
+    color: #fff;
+}
+
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+video {
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+}
+
+.text-instruction {
+    font-size: 1.5em;
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); color: #fff; }
+    50% { transform: scale(1.1); color: #ffe0e0; }
+}
+
+/* Floating hearts in background */
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff5c5c;
+    transform: rotate(-45deg);
+    animation: float 6s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff5c5c;
+    border-radius: 50%;
+}
+
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: 10px; top: 0; }
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
+    100% { transform: translateY(-800px) rotate(-45deg); opacity: 0; }
+}
+
+/* Confetti hearts */
+.confetti {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ff7b7b;
+    transform: rotate(-45deg);
+    opacity: 0;
+}
+
+.confetti::before,
+.confetti::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ff7b7b;
+    border-radius: 50%;
+}
+
+.confetti::before { top: -7.5px; left: 0; }
+.confetti::after { left: 7.5px; top: 0; }
+
+@keyframes confetti-fall {
+    0% { transform: translate(0,0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--x), 800px) rotate(360deg); opacity: 0; }
+}
+
+/* Big popping heart at end */
+#bigHeart {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background-color: #ff4c4c;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0) rotate(-45deg);
+    z-index: 100;
+    border-radius: 0;
+}
+
+#bigHeart::before,
+#bigHeart::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background-color: #ff4c4c;
+    border-radius: 50%;
+}
+
+#bigHeart::before { top: -75px; left: 0; }
+#bigHeart::after { left: 75px; top: 0; }
+
+@keyframes popHeart {
+    0% { transform: translate(-50%, -50%) scale(0) rotate(-45deg); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.2) rotate(-45deg); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1) rotate(-45deg); opacity: 1; }
+}
+</style>
+</head>
+<body>
+<h1>Happy 1 Year and 9 Months honey!</h1>
+
+<video id="valentineVideo" controls>
+    <source src="VideoforSarah.mp4.mov" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<p class="text-instruction">Text me "Yes" or "No" 💌</p>
+
+<!-- Background hearts -->
+<div class="heart" style="left: 10%; animation-duration: 7s;"></div>
+<div class="heart" style="left: 30%; animation-duration: 5s;"></div>
+<div class="heart" style="left: 50%; animation-duration: 6s;"></div>
+<div class="heart" style="left: 70%; animation-duration: 8s;"></div>
+<div class="heart" style="left: 90%; animation-duration: 4s;"></div>
+
+<!-- Big heart at the end -->
+<div id="bigHeart"></div>
+
+<script>
+// Generate confetti hearts
+function createConfetti() {
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.setProperty('--x', (Math.random() * 600 - 300) + 'px');
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '-50px';
+        document.body.appendChild(confetti);
+
+        confetti.style.animation = `confetti-fall ${3 + Math.random()*2}s forwards`;
+        setTimeout(() => confetti.remove(), 5000);
+    }
+}
+
+// Show big heart
+function showBigHeart() {
+    const heart = document.getElementById('bigHeart');
+    heart.style.animation = 'popHeart 1s forwards';
+}
+
+// Trigger confetti when video plays
+const video = document.getElementById('valentineVideo');
+video.addEventListener('play', createConfetti);
+video.addEventListener('ended', showBigHeart);
+</script>
+</body>
+</html>
