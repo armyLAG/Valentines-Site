@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be My Valentine?</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script&display=swap" rel="stylesheet">
+
+<style>
+/* Reset and basic styling */
 * {
     margin: 0;
     padding: 0;
@@ -19,22 +22,23 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* change from center to flex-start */
-    min-height: 100%; /* allow page to grow */
+    justify-content: flex-start;
+    min-height: 100%;
     padding: 20px;
     text-align: center;
-    overflow-x: hidden; /* prevent horizontal scroll */
+    overflow-x: hidden;
     position: relative;
     color: #fff;
 }
 
-
+/* Header */
 h1 {
     font-size: 3em;
     margin-bottom: 20px;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 
+/* Video */
 video {
     max-width: 100%;
     border-radius: 20px;
@@ -42,6 +46,7 @@ video {
     margin-bottom: 20px;
 }
 
+/* Instruction text */
 .text-instruction {
     font-size: 1.5em;
     font-weight: bold;
@@ -53,7 +58,22 @@ video {
     50% { transform: scale(1.1); color: #ffe0e0; }
 }
 
-/* Floating hearts in background */
+/* Sweet message */
+.sweet-message {
+    font-family: 'Dancing Script', cursive; /* readable cursive */
+    font-size: 1.6em;
+    line-height: 1.6;
+    margin-top: 20px;
+    background: rgba(255, 182, 193, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 600px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Floating hearts */
 .heart {
     position: absolute;
     width: 20px;
@@ -62,7 +82,6 @@ video {
     transform: rotate(-45deg);
     animation: float 6s linear infinite;
 }
-
 .heart::before,
 .heart::after {
     content: "";
@@ -72,7 +91,6 @@ video {
     background-color: #ff5c5c;
     border-radius: 50%;
 }
-
 .heart::before { top: -10px; left: 0; }
 .heart::after { left: 10px; top: 0; }
 
@@ -90,7 +108,6 @@ video {
     transform: rotate(-45deg);
     opacity: 0;
 }
-
 .confetti::before,
 .confetti::after {
     content: "";
@@ -100,7 +117,6 @@ video {
     background-color: #ff7b7b;
     border-radius: 50%;
 }
-
 .confetti::before { top: -7.5px; left: 0; }
 .confetti::after { left: 7.5px; top: 0; }
 
@@ -109,7 +125,7 @@ video {
     100% { transform: translate(var(--x), 800px) rotate(360deg); opacity: 0; }
 }
 
-/* Big popping heart at end */
+/* Big popping heart */
 #bigHeart {
     position: absolute;
     width: 150px;
@@ -121,7 +137,6 @@ video {
     z-index: 100;
     border-radius: 0;
 }
-
 #bigHeart::before,
 #bigHeart::after {
     content: "";
@@ -131,7 +146,6 @@ video {
     background-color: #ff4c4c;
     border-radius: 50%;
 }
-
 #bigHeart::before { top: -75px; left: 0; }
 #bigHeart::after { left: 75px; top: 0; }
 
@@ -143,16 +157,23 @@ video {
 </style>
 </head>
 <body>
-<h1>Happy 1 Year and 9 Months honey!</h1>
+
+<h1>Happy 1 Year and 9 Months, honey!</h1>
 
 <video id="valentineVideo" controls>
     <source src="VideoforSarah.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 
-<p class="text-instruction">Text me "Yes" or "No" 💌</p>
+<p class="text-instruction">Is that a yes?????</p>
 
-<!-- Background hearts -->
+<!-- Sweet message -->
+<p class="sweet-message">
+  Happy Valentines Honey baby, I love you so so soooo much💕<br>
+  I hope this little site and video I made to ask you makes you super happy, Love Armand 💌
+</p>
+
+<!-- Floating hearts -->
 <div class="heart" style="left: 10%; animation-duration: 7s;"></div>
 <div class="heart" style="left: 30%; animation-duration: 5s;"></div>
 <div class="heart" style="left: 50%; animation-duration: 6s;"></div>
@@ -189,5 +210,6 @@ const video = document.getElementById('valentineVideo');
 video.addEventListener('play', createConfetti);
 video.addEventListener('ended', showBigHeart);
 </script>
+
 </body>
 </html>
